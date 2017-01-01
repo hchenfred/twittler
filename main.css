@@ -1,0 +1,37 @@
+body {
+	font-family: "Helvetica Neue"; 
+	width: 600px;
+	margin: 40px auto;
+}
+
+hr {
+	border-style: inset;
+	border-width: 1px;
+	width: 400px;
+	margin-left: 0px;
+}
+
+.tweet {
+	margin: 30px 10px;
+	line-height: 2px;
+	text-align: left;
+}
+
+.userName {
+	color: #55ACEE;
+}
+
+.time {
+	margin-left: 10px;
+	font-size: 12px;
+	color: #808080;
+}
+
+.loadTweets-btn {
+	margin: 10px 10px;
+	font-size: 110%;
+	background: rgb(66, 184, 221);
+	border-radius: 4px;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+    color: white;
+}

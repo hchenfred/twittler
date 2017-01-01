@@ -3,22 +3,70 @@
   <head>
     <script src="jquery.js"></script>
     <script src="data_generator.js"></script>
+    <link rel="stylesheet" href="main.css">
   </head>
   <body>
     <script>
-
       $(document).ready(function(){
         var $body = $('body');
         $body.html('');
+        $body.append('<button class="loadTweets-btn">Load New Tweets</button>');
+        $body.append('<div class="tweets"></div>');
+        var $tweets = $('.tweets');
+        loadTweets();
+        $('.loadTweets-btn').on('click', function() {
+          loadTweets();
+        });
 
-        var index = streams.home.length - 1;
-        while(index >= 0){
-          var tweet = streams.home[index];
-          var $tweet = $('<div></div>');
-          $tweet.text('@' + tweet.user + ': ' + tweet.message);
-          $tweet.appendTo($body);
-          index -= 1;
+        $('body').on('click', '.userName', function(e) {
+          e.preventDefault();
+          var name = $(this).text().slice(1);
+          console.log(name);
+          loadUserTweets(name);
+        });
+
+        function loadUserTweets(name) {
+          $tweets.empty();
+          var userName = name.toLowerCase();
+          var index = streams.home.length - 1;
+          while(index >= 0){
+            var tweet = streams.home[index];
+            if (tweet.user === userName) {
+              //console.log("enter here");
+              var $tweet = $(createSingleTweet(tweet));
+              $tweet.appendTo($tweets);
+              //console.log($tweet);
+            }  
+            index -= 1;
+          }
         }
+
+
+        function loadTweets() {
+          $tweets.empty();
+          var index = streams.home.length - 1;
+          while(index >= 0){
+            var tweet = streams.home[index];
+            var $tweet = $(createSingleTweet(tweet));
+            $tweet.appendTo($tweets);
+            index -= 1;
+          }
+        }
+
+        function createSingleTweet(tweet) {
+          return '<div class="tweet"><a href="#/" class="userName">@' + formatName(tweet.user) + '</a><span class="time">' + formatTime(tweet.created_at) + '</span><p>' + tweet.message + '</p><hr></div>';
+
+        }
+
+        function formatName(name) {
+          return name.charAt(0).toUpperCase() + name.slice(1);
+        }
+
+        function formatTime(time) {
+          return time.toUTCString();
+        }
+
+        
 
       });
 
